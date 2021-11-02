@@ -3,7 +3,8 @@ import os, docx
 def save_docx(CATALOGUE: str):
     
     slides = [f"{CATALOGUE}/{x}" for x in os.listdir(CATALOGUE) if '.png' in x and x != 'screen.png']
-
+    slides = sorted(slides, key = lambda x: int(x.split('/')[1].split('.')[0]))[:-1]
+    
     doc = docx.Document()
 
     p = doc.add_paragraph()
