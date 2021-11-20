@@ -17,4 +17,3 @@ def save_docx(CATALOGUE: str):
         doc.paragraphs[-1].alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
 
     doc.save(f'{CATALOGUE}.docx')
-    

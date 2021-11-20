@@ -1,6 +1,9 @@
 import numpy as np
 from scipy.stats import pearsonr
 
+# The methods in this files are to extract slides from the screen
+# However, it must be develop to achieve stability
+# Now, the app saves entire screen - method with 100% accuracy for fullscreen mode!
 
 def flatten_screen(img: np.ndarray):
     """
