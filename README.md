@@ -8,6 +8,8 @@ I opened an app and run it. 'document_dir' I wrote is a working directory with s
 
 ![image](https://user-images.githubusercontent.com/50794170/142727883-60655daf-de2f-4d62-b85b-e87c6d988219.png)
 
-I opened my presentation on full-screen mode. How the result looks like?
+I clicked 'start'. Then, I opened my presentation on full-screen mode. Each slide was opened for several or dozen seconds. When the presentation had finished I clicked 'end'.
+
+How the result looks like?
 
 [document_dir.docx](https://github.com/tomWitkowski/ScreenShoter/files/7574594/document_dir.docx)
