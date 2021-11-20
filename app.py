@@ -26,7 +26,7 @@ class ScreenShoter:
         self.root = tk.Tk()
         self.root.title('ScreenShoter')
         self.root.iconbitmap('slide_icon.ico')
-        self.root.geometry("280x150")
+        self.root.geometry("250x130")
         self.root.config(bg='dimgray', highlightcolor='white')
         
         self.root.protocol('WM_DELETE_WINDOW', self.quit)  
@@ -36,21 +36,21 @@ class ScreenShoter:
         
         self.second_sleep = 1
 
-        label_enter = tk.Label(bg= 'gray', height = 5, width = 25)
-        label_enter.grid(row=0, column=0)
+        label_enter = tk.Label(bg= 'gray', height = 3, width = 35)
+        label_enter.grid(row=0, column=0, columnspan=2)
+#         label_enter = tk.Label(bg= 'gray', height = 3, width = 35)
+#         label_enter.grid(row=0, column=1, columnspan=1)
         
-        entry_name = tk.Entry()
-        entry_name.grid(row=0,column=0,columnspan=2,padx=20,pady=10)
-
+        entry_name = tk.Entry(bg='cornflowerblue', width = 18)
+        entry_name.grid(row=0,column=1,columnspan=2,padx=0,pady=10)
+        
         # entry.pack()
 #         print(help(tk.Button), sep ='\n\n',end='\n\n')
-
-
         
         button_start = tk.Button(self.root, text='start', padx=40, pady=20, command=lambda: self.run(entry_name), background='cornflowerblue')
         button_end = tk.Button(self.root, text='end', padx=40, pady=20, command = self.finish_run, background='cornflowerblue')
 
-        button_start.grid(row=1, column=0, padx=4, pady=5)
+        button_start.grid(row=1, column=0, padx=0, pady=5)
         button_end.grid(row=1, column=1, pady=5)
 
         
@@ -81,13 +81,14 @@ class ScreenShoter:
         
         if self.wait:
             self.wait = False
+            self.last_imgs = []
             
             self.cat = entry.get().replace(' ','_')
             if self.cat not in os.listdir():
                 os.mkdir(self.cat)
 
             self.root.iconify()
-            self.sleep(0.1)
+            self.sleep(5)
             
             i = 0
             while True:
@@ -99,6 +100,7 @@ class ScreenShoter:
 #                     img  = get_slide(IMG)
                     img = IMG.copy()
                     plt.imsave(f'{self.cat}/{i}.png', img)
+                    self.last_imgs.append(img.copy())
 
                     i += 1
                     self.sleep()
@@ -106,11 +108,13 @@ class ScreenShoter:
 
 #                 img_new =  get_slide(IMG)
                 img_new = IMG.copy()
-    
-                if not the_same_slides(img, img_new):
+                
+                slide_set = [the_same_slides(im_, img_new) for im_ in self.last_imgs[-5:]]
+                if sum(slide_set) == 0:
                     i += 1
                     img = img_new
                     plt.imsave(f'{self.cat}/{i}.png', img)
+                    self.last_imgs.append(img.copy())
 
                 self.sleep()
                 if self.finish:
